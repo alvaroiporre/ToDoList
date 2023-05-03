@@ -3,7 +3,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   flex-wrap: wrap;
   box-sizing: border-box;
 }
@@ -14,12 +14,9 @@ body {
   width: max(300px, 50%);
 }
 
-
-
 .title {
   margin: 0;
   color: rgb(44, 43, 43);
-  
 }
 
 ::placeholder {
@@ -46,7 +43,6 @@ body {
 .task {
   list-style: none;
   margin: 0;
-  
 }
 
 .list {
@@ -54,14 +50,12 @@ body {
   margin: 0;
 }
 
-
 .check {
-  text-decoration:line-through;
+  text-decoration: line-through;
   color: gray;
 }
 
 .checkbox {
-
   margin-right: 5px;
 }
 

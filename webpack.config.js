@@ -24,16 +24,16 @@ module.exports = {
         type: 'asset/resource',
         use: [{
           loader: 'image-webpack-loader',
-          options: { 
+          options: {
             pngquant: {
-              quality: [.90, .95],
+              quality: [0.90, 0.95],
             },
-          }
+          },
         }],
         generator: {
-            filename: 'images/[name]-[hash][ext]'
-        }
-      }
+          filename: 'images/[name]-[hash][ext]',
+        },
+      },
     ],
   },
   mode: 'development',
