@@ -19,6 +19,21 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpg)$/i,
+        type: 'asset/resource',
+        use: [{
+          loader: 'image-webpack-loader',
+          options: { 
+            pngquant: {
+              quality: [.90, .95],
+            },
+          }
+        }],
+        generator: {
+            filename: 'images/[name]-[hash][ext]'
+        }
+      }
     ],
   },
   mode: 'development',
