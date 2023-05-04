@@ -6,7 +6,6 @@ import more from './more.png';
 import returnI from './icon_return.svg';
 import trash from './trash.png';
 
-
 const list = document.querySelector('.list');
 const inputText = document.querySelector('.text-input');
 const iconReload = document.getElementById('icon-reload');
@@ -14,35 +13,11 @@ const iconReturn = document.getElementById('icon-return');
 iconReload.src = reload;
 iconReturn.src = returnI;
 
-let tasks = new Tasks();
-
-window.check = (index) => {
-  document.getElementById(index).classList.toggle('check');
-};
-
-window.sendTrash = (index) => {
-  console.log(index);
-  tasks.remove(index);
-  drawTasks(tasks.list);
-}
-
-window.appearDelete = (id) => {
-  setTimeout(() => {
-    document.getElementById('trash-' + id).classList.toggle('hide');
-    document.getElementById('more-' + id).classList.toggle('hide');
-  }, 100);
-}
-
-window.update = (index) => {
-  tasks.update(index, document.getElementById(index).value);
-  drawTasks(tasks.list);
-}
-
-
+const tasks = new Tasks();
 
 const drawTasks = (tasks) => {
   list.innerHTML = '';
-  tasks.forEach((task) => { 
+  tasks.forEach((task) => {
     list.innerHTML += `
         <li class="row task flex-around" >
           <div>
@@ -59,13 +34,34 @@ const drawTasks = (tasks) => {
   });
 };
 
-inputText.addEventListener('keypress',(event) => {
-    if(event.key == 'Enter'){
-      const newTask = new Task(inputText.value, tasks.list.length + 1);
-      tasks.add(newTask);
-      drawTasks(tasks.list);
-      inputText.value = '';
-    }
+window.check = (index) => {
+  document.getElementById(index).classList.toggle('check');
+};
+
+window.sendTrash = (index) => {
+  tasks.remove(index);
+  drawTasks(tasks.list);
+};
+
+window.appearDelete = (index) => {
+  setTimeout(() => {
+    document.getElementById(`trash-${index}`)?.classList.toggle('hide');
+    document.getElementById(`more-${index}`)?.classList.toggle('hide');
+  }, 200);
+};
+
+window.update = (index) => {
+  tasks.update(index, document.getElementById(index).value);
+  drawTasks(tasks.list);
+};
+
+inputText.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    const newTask = new Task(inputText.value, tasks.list.length + 1);
+    tasks.add(newTask);
+    drawTasks(tasks.list);
+    inputText.value = '';
+  }
 });
 
 drawTasks(tasks.list);

@@ -90,7 +90,8 @@ body {
   height: 10px;
 }
 
-.icon-more, .icon-trash {
+.icon-more,
+.icon-trash {
   width: 20px;
 }
 
