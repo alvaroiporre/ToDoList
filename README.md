@@ -50,7 +50,7 @@ Html, Css, JavaScript and Webpack.
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 
-- [Live Demo Link](https://github.com/alvaroiporre/ToDoList) Comming soon...
+- Comming soon...
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
