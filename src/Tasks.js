@@ -27,11 +27,16 @@ export default class Tasks {
   }
 
   updateCheck = (index) => {
-    this.list[index - 1].completed = true;
+    this.list[index - 1].completed = !this.list[index - 1].completed;
     this.updateLocalStorage();
   }
 
   updateLocalStorage = () => {
     localStorage.setItem('tasks', JSON.stringify(this.list));
+  }
+
+  clean = () => {
+    this.list = this.list.filter((task) => task.completed !== true);
+    this.updateIndex();
   }
 }

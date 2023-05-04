@@ -21,16 +21,19 @@ const drawTasks = (tasks) => {
     list.innerHTML += `
         <li class="row task flex-around" >
           <div>
-            <input class="checkbox" onclick=check(${task.index}) type="checkbox" name="" id="check-${task.index}">
-            <input type="text" class="text-task" 
+            <input class="checkbox" onchange=check(${task.index}) type="checkbox" name="check-${task.index}" id="check-${task.index}">
+            <input type="text" class="text-task ${(task.completed? 'check':'')}" 
               onchange=update(${task.index}) value)
-              onfocus=appearDelete(${task.index}) 
+              onfocus=appearDelete(${task.index})
               onblur=appearDelete(${task.index}) id="${task.index}" value="${task.description}">
           </div>
           <img class="icon-trash hide" onclick=sendTrash(${task.index}) src='${trash}' id='trash-${task.index}'>
           <img class="icon-more" src='${more}' id='more-${task.index}'>
         </li>
         `;
+  });
+  tasks.forEach((task) => {
+    document.getElementById(`check-${task.index}`).checked = task.completed;
   });
 };
 
@@ -56,6 +59,10 @@ window.update = (index) => {
   drawTasks(tasks.list);
 };
 
+window.clean = () => {
+  tasks.clean();
+  drawTasks(tasks.list);
+};
 inputText.addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
     const newTask = new Task(inputText.value, tasks.list.length + 1);
