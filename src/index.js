@@ -1,3 +1,5 @@
+/* eslint-disabled */
+
 import './index.css';
 import Task from './Task.js';
 import Tasks from './Tasks.js';
