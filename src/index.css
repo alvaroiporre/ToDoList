@@ -35,6 +35,16 @@ body {
   width: 96%;
 }
 
+.text-task {
+  border: none;
+  width: 80%;
+}
+
+.text-task:focus-visible,
+.text-input:focus-visible {
+  outline: 0;
+}
+
 .icon_return {
   width: 10px;
   margin-left: 5px;
@@ -78,4 +88,17 @@ body {
 .icon-reload {
   width: 10px;
   height: 10px;
+}
+
+.icon-more,
+.icon-trash {
+  width: 20px;
+}
+
+.icon-trash:hover {
+  width: 22px;
+}
+
+.hide {
+  display: none;
 }
