@@ -26,6 +26,11 @@ export default class Tasks {
     this.updateLocalStorage();
   }
 
+  updateCheck = (index) => {
+    this.list[index - 1].completed = true;
+    this.updateLocalStorage();
+  }
+
   updateLocalStorage = () => {
     localStorage.setItem('tasks', JSON.stringify(this.list));
   }

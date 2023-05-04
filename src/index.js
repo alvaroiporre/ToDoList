@@ -36,6 +36,7 @@ const drawTasks = (tasks) => {
 
 window.check = (index) => {
   document.getElementById(index).classList.toggle('check');
+  tasks.updateCheck(index);
 };
 
 window.sendTrash = (index) => {
