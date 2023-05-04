@@ -5,8 +5,6 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
-    "start": "webpack serve --open",
     "build": "webpack"
   },
   "keywords": [],
@@ -28,8 +26,7 @@
     "stylelint-csstree-validator": "^1.9.0",
     "stylelint-scss": "^3.21.0",
     "webpack": "^5.81.0",
-    "webpack-cli": "^5.0.2",
-    "webpack-dev-server": "^4.13.3"
+    "webpack-cli": "^5.0.2"
   },
   "dependencies": {
     "lodash": "^4.17.21"
