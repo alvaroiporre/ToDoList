@@ -1,5 +1,5 @@
 import './index.css';
-import Task from './Task.js';
+import Task from './modules/Task.js';
 import Tasks from './Tasks.js';
 import reload from './reload.png';
 import more from './more.png';
