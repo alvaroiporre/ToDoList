@@ -1,6 +1,6 @@
 import './index.css';
 import Task from './modules/Task.js';
-import Tasks from './Tasks.js';
+import Tasks from './modules/Tasks.js';
 import reload from './reload.png';
 import more from './more.png';
 import returnI from './icon_return.svg';
