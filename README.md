@@ -72,6 +72,10 @@ Clone this repository to your desired folder:
 Ready for use it.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Run tests <a id='run-tests'></a>
+To run Jest tests use: npm run test
+
+
 ## 👥 Authors <a name="authors"></a>
 
 👤 **Alvaro Iporre**
