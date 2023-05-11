@@ -7,7 +7,7 @@
     "dev": "webpack --mode development",
     "start": "webpack serve --open",
     "build": "webpack",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "jest": {
     "transform": {
