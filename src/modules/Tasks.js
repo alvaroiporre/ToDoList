@@ -6,12 +6,14 @@ export default class Tasks {
   add = (data) => {
     this.list.push(data);
     this.updateLocalStorage();
+    return this.list;
   }
 
   remove = (id) => {
     this.list = this.list.filter((value) => value.index !== id);
     this.updateIndex();
     this.updateLocalStorage();
+    return this.list;
   };
 
   update = (index, description) => {

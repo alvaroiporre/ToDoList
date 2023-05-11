@@ -3,6 +3,10 @@ const HtmlWbpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
+  mode: 'development',
+  devServer: {
+    static: './dist',
+  },
   plugins: [
     new HtmlWbpackPlugin({
       template: './src/index.html',
@@ -25,5 +29,4 @@ module.exports = {
       },
     ],
   },
-  mode: 'development',
 };
