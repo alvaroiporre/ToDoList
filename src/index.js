@@ -32,6 +32,7 @@ const drawTasks = (tasks) => {
         </li>
         `;
   });
+  
   tasks.forEach((task) => {
     document.getElementById(`check-${task.index}`).checked = task.completed;
   });
