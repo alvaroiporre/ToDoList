@@ -18,6 +18,51 @@ const tasks = new Tasks();
 const drawTasks = (tasks) => {
   list.innerHTML = '';
   tasks.forEach((task) => {
+    const listItem = document.createElement('li');
+    listItem.setAttribute('class', 'row task flex-around');
+
+    const divItem = document.createElement('div'); 
+    
+    const checkItem = document.createElement('input');
+    checkItem.className = 'checkbox';
+    checkItem.setAttribute('onchange', () => check(task.index));
+    checkItem.setAttribute('type', 'checkbox');
+    checkItem.setAttribute('name', `check-${task.index}`);
+    checkItem.setAttribute('id', `check-${task.index}`);
+    
+    const textItem = document.createElement('input');
+    textItem.setAttribute('type', 'text');
+    textItem.className = 'text-task';
+    if(task.completed) textItem.classList.add('check');
+    textItem.setAttribute('onchange', () => update(task.index));
+    textItem.setAttribute('onfocus', appearDelete(task.index));
+    textItem.setAttribute('onblur', appearDelete(task.index));
+    textItem.setAttribute('id', task.index);
+    textItem.setAttribute('value', task.description);
+
+    divItem.appendChild(checkItem);
+    divItem.appendChild(textItem);
+
+    listItem.appendChild(divItem);
+
+    const trashBtn = document.createElement('img');
+    trashBtn.className = 'icon-trash';
+    trashBtn.classList.add('hide');
+    trashBtn.setAttribute('src', trash);
+    trashBtn.setAttribute('onclick', () => sendTrash(task.index));
+    trashBtn.setAttribute('id', `trash-${task.index}`);
+
+    const moreBtn = document.createElement('img');
+    moreBtn.className = 'icon-more';
+    moreBtn.setAttribute('src', more);
+    moreBtn.setAttribute('id', `more-${task.index}`);
+
+    listItem.appendChild(trashBtn);
+    listItem.appendChild(moreBtn);
+
+    list.appendChild(listItem);
+
+    /*
     list.innerHTML += `
         <li class="row task flex-around" >
           <div>
@@ -30,7 +75,8 @@ const drawTasks = (tasks) => {
           <img class="icon-trash hide" onclick=sendTrash(${task.index}) src='${trash}' id='trash-${task.index}'>
           <img class="icon-more" src='${more}' id='more-${task.index}'>
         </li>
-        `;
+        `;*/
+
   });
   
   tasks.forEach((task) => {
