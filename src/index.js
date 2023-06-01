@@ -20,37 +20,46 @@ const drawTasks = (tasks) => {
   tasks.forEach((task) => {
     const listItem = document.createElement('li');
     listItem.setAttribute('class', 'row task flex-around');
-
+    listItem.setAttribute('id', `list-${task.index}`);
     const divItem = document.createElement('div'); 
     
     const checkItem = document.createElement('input');
     checkItem.className = 'checkbox';
-    checkItem.setAttribute('onchange', () => check(task.index));
     checkItem.setAttribute('type', 'checkbox');
     checkItem.setAttribute('name', `check-${task.index}`);
     checkItem.setAttribute('id', `check-${task.index}`);
+    checkItem.addEventListener('change', () => {
+      check(task.index);
+    });
     
     const textItem = document.createElement('input');
     textItem.setAttribute('type', 'text');
     textItem.className = 'text-task';
-    if(task.completed) textItem.classList.add('check');
-    textItem.setAttribute('onchange', () => update(task.index));
-    textItem.setAttribute('onfocus', appearDelete(task.index));
-    textItem.setAttribute('onblur', appearDelete(task.index));
     textItem.setAttribute('id', task.index);
+    if(task.completed) textItem.classList.add('check');
     textItem.setAttribute('value', task.description);
+    textItem.addEventListener('input', () => {
+      update(task.index);
+    });
+    textItem.addEventListener('focus', () => {
+      appearDelete(task.index)
+    });
+    textItem.addEventListener('blur', () => {
+      appearDelete(task.index)
+    });
 
     divItem.appendChild(checkItem);
     divItem.appendChild(textItem);
-
     listItem.appendChild(divItem);
 
     const trashBtn = document.createElement('img');
     trashBtn.className = 'icon-trash';
     trashBtn.classList.add('hide');
     trashBtn.setAttribute('src', trash);
-    trashBtn.setAttribute('onclick', () => sendTrash(task.index));
     trashBtn.setAttribute('id', `trash-${task.index}`);
+    trashBtn.addEventListener('click', () => {
+      sendTrash(task.index);
+    });
 
     const moreBtn = document.createElement('img');
     moreBtn.className = 'icon-more';
@@ -91,7 +100,8 @@ window.check = (index) => {
 
 window.sendTrash = (index) => {
   tasks.remove(index);
-  drawTasks(tasks.list);
+  const deleteItem = document.getElementById(`list-${index}`);
+  deleteItem.remove();
 };
 
 window.appearDelete = (index) => {
@@ -103,7 +113,6 @@ window.appearDelete = (index) => {
 
 window.update = (index) => {
   tasks.update(index, document.getElementById(index).value);
-  drawTasks(tasks.list);
 };
 
 window.clean = () => {
