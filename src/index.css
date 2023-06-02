@@ -99,6 +99,18 @@ body {
   width: 22px;
 }
 
+.icon-more {
+  cursor: move;
+}
+
 .hide {
   display: none;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.writing {
+  background-color: blanchedalmond;
 }

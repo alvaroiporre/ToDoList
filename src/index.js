@@ -18,25 +18,90 @@ const tasks = new Tasks();
 const drawTasks = (tasks) => {
   list.innerHTML = '';
   tasks.forEach((task) => {
-    list.innerHTML += `
-        <li class="row task flex-around" >
-          <div>
-            <input class="checkbox" onchange=check(${task.index}) type="checkbox" name="check-${task.index}" id="check-${task.index}">
-            <input type="text" class="text-task ${(task.completed? 'check':'')}" 
-              onchange=update(${task.index}) value)
-              onfocus=appearDelete(${task.index})
-              onblur=appearDelete(${task.index}) id="${task.index}" value="${task.description}">
-          </div>
-          <img class="icon-trash hide" onclick=sendTrash(${task.index}) src='${trash}' id='trash-${task.index}'>
-          <img class="icon-more" src='${more}' id='more-${task.index}'>
-        </li>
-        `;
+    const listItem = document.createElement('li');
+    listItem.setAttribute('class', 'row task flex-around');
+    listItem.setAttribute('id', `list-${task.index}`);
+    listItem.setAttribute('dragable', true);
+    listItem.addEventListener('dragstart', (e) => {
+      setTimeout(() => listItem.classList.add('dragging'), 0);
+    });
+    listItem.addEventListener('dragend', () => {
+      listItem.classList.remove('dragging');
+    })
+
+    const divItem = document.createElement('div'); 
+    
+    const checkItem = document.createElement('input');
+    checkItem.className = 'checkbox';
+    checkItem.setAttribute('type', 'checkbox');
+    checkItem.setAttribute('name', `check-${task.index}`);
+    checkItem.setAttribute('id', `check-${task.index}`);
+    checkItem.addEventListener('change', () => {
+      check(task.index);
+    });
+    
+    const textItem = document.createElement('input');
+    textItem.setAttribute('type', 'text');
+    textItem.className = 'text-task';
+    textItem.setAttribute('id', task.index);
+    if(task.completed) textItem.classList.add('check');
+    textItem.setAttribute('value', task.description);
+    textItem.addEventListener('input', () => {
+      update(task.index);
+    });
+    textItem.addEventListener('focus', () => {
+      appearDelete(task.index);
+      listItem.classList.add('writing');
+      textItem.classList.add('writing');
+    });
+    textItem.addEventListener('blur', () => {
+      appearDelete(task.index);
+      listItem.classList.remove('writing');
+      textItem.classList.remove('writing');
+    });
+
+    divItem.appendChild(checkItem);
+    divItem.appendChild(textItem);
+    listItem.appendChild(divItem);
+
+    const trashBtn = document.createElement('img');
+    trashBtn.className = 'icon-trash';
+    trashBtn.classList.add('hide');
+    trashBtn.setAttribute('src', trash);
+    trashBtn.setAttribute('id', `trash-${task.index}`);
+    trashBtn.addEventListener('click', () => {
+      sendTrash(task.index);
+    });
+
+    const moreBtn = document.createElement('img');
+    moreBtn.className = 'icon-more';
+    moreBtn.setAttribute('src', more);
+    moreBtn.setAttribute('id', `more-${task.index}`);
+
+    listItem.appendChild(trashBtn);
+    listItem.appendChild(moreBtn);
+
+    list.appendChild(listItem);
+
   });
   
   tasks.forEach((task) => {
     document.getElementById(`check-${task.index}`).checked = task.completed;
   });
 };
+
+const initSortableList = (e) => {
+  const draggingItem = list.querySelector('.dragging');
+  const siblings = [...list.querySelectorAll('.row:not(.dragging)')];
+
+  let nextSibling = siblings.find(sibling => {
+    return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+  });
+
+  list.insertBefore(draggingItem, nextSibling);
+};
+
+list.addEventListener('dragover', initSortableList);
 
 window.check = (index) => {
   document.getElementById(index).classList.toggle('check');
@@ -45,7 +110,8 @@ window.check = (index) => {
 
 window.sendTrash = (index) => {
   tasks.remove(index);
-  drawTasks(tasks.list);
+  const deleteItem = document.getElementById(`list-${index}`);
+  deleteItem.remove();
 };
 
 window.appearDelete = (index) => {
@@ -57,7 +123,6 @@ window.appearDelete = (index) => {
 
 window.update = (index) => {
   tasks.update(index, document.getElementById(index).value);
-  drawTasks(tasks.list);
 };
 
 window.clean = () => {
