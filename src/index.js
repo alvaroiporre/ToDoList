@@ -21,6 +21,14 @@ const drawTasks = (tasks) => {
     const listItem = document.createElement('li');
     listItem.setAttribute('class', 'row task flex-around');
     listItem.setAttribute('id', `list-${task.index}`);
+    listItem.setAttribute('dragable', true);
+    listItem.addEventListener('dragstart', (e) => {
+      setTimeout(() => listItem.classList.add('dragging'), 0);
+    });
+    listItem.addEventListener('dragend', () => {
+      listItem.classList.remove('dragging');
+    })
+
     const divItem = document.createElement('div'); 
     
     const checkItem = document.createElement('input');
@@ -42,10 +50,14 @@ const drawTasks = (tasks) => {
       update(task.index);
     });
     textItem.addEventListener('focus', () => {
-      appearDelete(task.index)
+      appearDelete(task.index);
+      listItem.classList.add('writing');
+      textItem.classList.add('writing');
     });
     textItem.addEventListener('blur', () => {
-      appearDelete(task.index)
+      appearDelete(task.index);
+      listItem.classList.remove('writing');
+      textItem.classList.remove('writing');
     });
 
     divItem.appendChild(checkItem);
@@ -77,6 +89,19 @@ const drawTasks = (tasks) => {
     document.getElementById(`check-${task.index}`).checked = task.completed;
   });
 };
+
+const initSortableList = (e) => {
+  const draggingItem = list.querySelector('.dragging');
+  const siblings = [...list.querySelectorAll('.row:not(.dragging)')];
+
+  let nextSibling = siblings.find(sibling => {
+    return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+  });
+
+  list.insertBefore(draggingItem, nextSibling);
+};
+
+list.addEventListener('dragover', initSortableList);
 
 window.check = (index) => {
   document.getElementById(index).classList.toggle('check');

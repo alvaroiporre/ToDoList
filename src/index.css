@@ -106,3 +106,11 @@ body {
 .hide {
   display: none;
 }
+
+.dragging {
+  opacity: 0.5;
+}
+
+.writing {
+  background-color: blanchedalmond;
+}
