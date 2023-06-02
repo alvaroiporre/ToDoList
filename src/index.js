@@ -71,21 +71,6 @@ const drawTasks = (tasks) => {
 
     list.appendChild(listItem);
 
-    /*
-    list.innerHTML += `
-        <li class="row task flex-around" >
-          <div>
-            <input class="checkbox" onchange=check(${task.index}) type="checkbox" name="check-${task.index}" id="check-${task.index}">
-            <input type="text" class="text-task ${(task.completed? 'check':'')}" 
-              onchange=update(${task.index}) value)
-              onfocus=appearDelete(${task.index})
-              onblur=appearDelete(${task.index}) id="${task.index}" value="${task.description}">
-          </div>
-          <img class="icon-trash hide" onclick=sendTrash(${task.index}) src='${trash}' id='trash-${task.index}'>
-          <img class="icon-more" src='${more}' id='more-${task.index}'>
-        </li>
-        `;*/
-
   });
   
   tasks.forEach((task) => {
